@@ -84,7 +84,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ needs.bump_version.outputs.new_tag }}
+          tag_name: hello2
           release_name: Release ${{ needs.bump_version.outputs.new_tag }}
           body: |
             IPFS hash of the deployment:
