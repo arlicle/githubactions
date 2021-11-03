@@ -51,7 +51,8 @@ jobs:
           path: './build'
           pinata-api-key: ${{ secrets.PINATA_API_KEY }}
           pinata-secret-api-key: ${{ secrets.PINATA_API_SECRET_KEY }}
-
+          verbose: true
+          remove-old: false
       # - name: Pin to Crust
       #   uses: crustio/ipfs-crust-action@v2.0.4
       #   continue-on-error: true
