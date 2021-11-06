@@ -83,12 +83,12 @@ jobs:
         env:
           CLOUDFLARE_TOKEN: ${{ secrets.CLOUDFLARE_TOKEN }}
           RECORD_DOMAIN: "21r.com"
-          RECORD_NAME: "_dnslink.app"
+          RECORD_NAME: "_contenthash.app"
           CLOUDFLARE_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
         id: dnslink_app
-        uses: textileio/cloudflare-update-dnslink@master
+        uses: arlicle/cloudflare-update-dnslink@master
         with:
-          cid: ${{ steps.upload.outputs.hash }}
+          cid: ipfs://${{ steps.upload.outputs.hash }}
 
       - name: Update DNSLink
         env:
@@ -107,8 +107,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: Hello6.83
-          release_name: Release Hello6.83
+          tag_name: Hello6.84
+          release_name: Release Hello6.84
           body: |
             IPFS hash of the deployment:
             - CIDv0: `${{ steps.upload.outputs.hash }}`
