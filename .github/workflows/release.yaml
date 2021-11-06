@@ -85,7 +85,7 @@ jobs:
           RECORD_DOMAIN: "21r.com"
           RECORD_NAME: "_dnslink.app"
           CLOUDFLARE_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
-        id: dnslink
+        id: dnslink_app
         uses: textileio/cloudflare-update-dnslink@master
         with:
           cid: ${{ steps.upload.outputs.hash }}
