@@ -1,0 +1,48 @@
+from web3 import Web3
+import json
+import os
+
+web3 = Web3(Web3.HTTPProvider('https://bsc-dataseed2.defibit.io'))
+print(web3.isConnected())
+
+contract_address = "0x18C32E273D0F13D5b8268B3Bc5acD30f26A8F91a"
+
+abi = '[{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"uint256","name":"id","type":"uint256"},{"indexed":true,"internalType":"address","name":"killer","type":"address"},{"indexed":false,"internalType":"uint256","name":"prize","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"left","type":"uint256"}],"name":"Liquidate","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"uint256","name":"id","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"debt","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"back","type":"uint256"}],"name":"OpPosition","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"payable":true,"stateMutability":"payable","type":"fallback"},{"constant":false,"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"string","name":"_symbol","type":"string"}],"name":"addToken","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"banks","outputs":[{"internalType":"address","name":"tokenAddr","type":"address"},{"internalType":"address","name":"gTokenAddr","type":"address"},{"internalType":"bool","name":"isOpen","type":"bool"},{"internalType":"bool","name":"canDeposit","type":"bool"},{"internalType":"bool","name":"canWithdraw","type":"bool"},{"internalType":"uint256","name":"totalVal","type":"uint256"},{"internalType":"uint256","name":"totalDebt","type":"uint256"},{"internalType":"uint256","name":"totalDebtShare","type":"uint256"},{"internalType":"uint256","name":"totalReserve","type":"uint256"},{"internalType":"uint256","name":"lastInterestTime","type":"uint256"},{"internalType":"uint256","name":"tokenIdx","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"token","type":"address"}],"name":"calInterest","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"currentPid","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"currentPos","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"currentToken","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"debtShare","type":"uint256"}],"name":"debtShareToVal","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"debtVal","type":"uint256"}],"name":"debtValToShare","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"deposit","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"constant":false,"inputs":[{"internalType":"string","name":"_symbol","type":"string"}],"name":"genGToken","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"isOwner","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"uint256","name":"posId","type":"uint256"}],"name":"liquidate","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"constant":false,"inputs":[{"internalType":"uint256","name":"posId","type":"uint256"},{"internalType":"uint256","name":"pid","type":"uint256"},{"internalType":"uint256","name":"borrow","type":"uint256"},{"internalType":"bytes","name":"data","type":"bytes"}],"name":"opPosition","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"constant":false,"inputs":[{"internalType":"uint256","name":"pid","type":"uint256"},{"internalType":"bool","name":"isOpen","type":"bool"},{"internalType":"bool","name":"canBorrow","type":"bool"},{"internalType":"address","name":"coinToken","type":"address"},{"internalType":"address","name":"currencyToken","type":"address"},{"internalType":"address","name":"borrowToken","type":"address"},{"internalType":"address","name":"goblin","type":"address"},{"internalType":"uint256","name":"minDebt","type":"uint256"},{"internalType":"uint256","name":"openFactor","type":"uint256"},{"internalType":"uint256","name":"liquidateFactor","type":"uint256"}],"name":"opProduction","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"uint256","name":"posId","type":"uint256"}],"name":"positionInfo","outputs":[{"internalType":"uint256","name":"","type":"uint256"},{"internalType":"uint256","name":"","type":"uint256"},{"internalType":"uint256","name":"","type":"uint256"},{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"positions","outputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"uint256","name":"productionId","type":"uint256"},{"internalType":"uint256","name":"debtShare","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"productions","outputs":[{"internalType":"address","name":"coinToken","type":"address"},{"internalType":"address","name":"currencyToken","type":"address"},{"internalType":"address","name":"borrowToken","type":"address"},{"internalType":"bool","name":"isOpen","type":"bool"},{"internalType":"bool","name":"canBorrow","type":"bool"},{"internalType":"address","name":"goblin","type":"address"},{"internalType":"uint256","name":"minDebt","type":"uint256"},{"internalType":"uint256","name":"openFactor","type":"uint256"},{"internalType":"uint256","name":"liquidateFactor","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"renounceOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"token","type":"address"}],"name":"totalToken","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"contract IBankConfig","name":"_config","type":"address"}],"name":"updateConfig","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"bool","name":"canDeposit","type":"bool"},{"internalType":"bool","name":"canWithdraw","type":"bool"}],"name":"updateToken","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"pAmount","type":"uint256"}],"name":"withdraw","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"withdrawReserve","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"}]'
+
+
+contract = web3.eth.contract(address=contract_address, abi=abi)
+
+result_data = {}
+index = 1
+error_times = 0
+
+
+while error_times <= 10:
+    print("index: %s" % index)
+    s = contract.functions.positionInfo(index).call()
+    print(s)
+    if result_data.get(s[3]):
+        result_data[s[3]].append(index)
+    else:
+        result_data[s[3]] = [index]
+    index += 1
+
+# 返回结果
+# [6, 0, 0, '0x5d147A749a9119f3345927d595f68E858901bdEa']
+# [策略id,  仓位总价值, 总欠款, 用户地址]
+
+
+print(result_data.get("0xDe84B97a3cf5691491D2357b3eB2b7a25C7EcEC1"))
+
+print(result_data)
+
+try:
+    os.mkdir("build/d/")
+except:
+    pass
+
+
+for key, value in result_data.items():
+    f = open("build/d/%s.json" % key, "w+")
+    f.write(json.dumps(value))
+    f.close()
