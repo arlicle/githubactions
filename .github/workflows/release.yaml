@@ -107,8 +107,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: Hello6.86
-          release_name: Release Hello6.86
+          tag_name: Hello6.87
+          release_name: Release Hello6.87
           body: |
             IPFS hash of the deployment:
             - CIDv0: `${{ steps.upload.outputs.hash }}`
