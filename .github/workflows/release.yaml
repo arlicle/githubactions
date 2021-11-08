@@ -107,16 +107,16 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: Hello6.87
-          release_name: Release Hello6.87
+          tag_name: B${{ steps.upload.outputs.hash }}
+          release_name: Release B${{ steps.upload.outputs.hash }}
           body: |
             IPFS hash of the deployment:
             - CIDv0: `${{ steps.upload.outputs.hash }}`
             - CIDv1: `${{ steps.convert_cidv0.outputs.cidv1 }}`
-            The latest release is always accessible via our alias to the Cloudflare IPFS gateway at [app.uniswap.org](https://app.uniswap.org).
+            The latest release is always accessible via our alias to the Cloudflare IPFS gateway at [app.bagels.finance](https://app.bagels.finance).
             You can also access the Uniswap Interface directly from an IPFS gateway.
             **BEWARE**: The Uniswap interface uses [`localStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) to remember your settings, such as which tokens you have imported.
-            **You should always use an IPFS gateway that enforces origin separation**, or our alias to the latest release at [app.uniswap.org](https://app.uniswap.org).
+            **You should always use an IPFS gateway that enforces origin separation**, or our alias to the latest release at [app.bagels.finance](https://app.bagels.finance).
             Your Uniswap settings are never remembered across different URLs.
             IPFS gateways:
             - https://${{ steps.convert_cidv0.outputs.cidv1 }}.ipfs.dweb.link/
