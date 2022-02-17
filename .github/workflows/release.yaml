@@ -107,7 +107,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: B${{ steps.upload.outputs.hash }}
+          tag_name: ${{ steps.convert_cidv0.outputs.cidv1 }}
           release_name: Release B${{ steps.upload.outputs.hash }}
           body: |
             IPFS hash of the deployment:
